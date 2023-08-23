@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../js/vue.js"></script>
+</head>
+<body>
+    <div id="root">
+        <h2>学校信息</h2>
+        <h2>学校名称:{{school.name}}</h2>
+        <h2>学校地址:{{school.adress}}</h2>
+        <h2>校长：{{school.leader}}</h2>
+        <hr>
+        <h1>学生信息</h1>
+        <button @click="add">点击添加性别属性，默认值是男</button>
+        <h2>姓名：{{student.name}}</h2>
+        <h2>性别：{{student.sex}}</h2>
+        <h2>年龄： 真实年龄：{{student.age.rAge}}，对外年龄：{{student.age.sAge}}</h2>
+    </div>
+    <script typr="text/javascript">
+        Vue.config.productionTip = false
+        const vm = new Vue({
+            el:'#root',
+            data:{
+                school:{
+                    name:'北大',
+                    adress:'临潼',
+                    leader:'顶针'
+                },
+                student:{
+                    name:'奥特曼',
+                    age:{
+                        rAge:'99',
+                        sAge:'18',
+                    }
+                }
+            },
+            methods: {
+                // vue.set(要添加到的对象或数组, '属性名/index', '属性值')  属性名为新创建的  index 为替换原来的
+                // 只能给data里面的某个对象里面添加，不能直接在data上添加，也不能在vm上添加
+                add(){
+                    // Vue.set(this.student, 'sex', '男')
+                    this.$set(this.student, 'sex', '男')
+                }
+            },
+        })
+    </script>
+</body>
+</html>

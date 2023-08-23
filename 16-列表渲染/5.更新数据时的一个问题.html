@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../js/vue.js"></script>
+</head>
+<body>
+    <div id="root">
+        <!-- 遍历数组 -->
+        <h2>人员列表(遍历数组))</h2>
+        <button @click="updataMei">点击更新马冬梅数据</button>
+        <ul>
+            <li v-for="(p,index) in persons" :key="p.id">
+                {{p.name}}-{{p.age}}-{{p.sex}}
+            </li>
+        </ul>
+    </div>
+    <script typr="text/javascript">
+        Vue.config.productionTip = false
+        const vm = new Vue({
+            el:'#root',
+            data:{
+                persons:[
+                    {id:'001',name:'马冬梅',age:'18',sex:'女'},
+                    {id:'002',name:'周冬雨',age:'20',sex:'女'},
+                    {id:'003',name:'周杰伦',age:'22',sex:'男'},
+                    {id:'004',name:'温兆伦',age:'23',sex:'男'}
+                ],
+                keyWords:''
+            },
+            methods: {
+                updataMei(){
+                    // 页面奏效
+                    // this.persons[0].name = '马老师'
+                    // this.persons[0].age = 50
+                    // this.persons[0].sex = '男'
+
+                    // 页面不奏效
+                    // 先点击按钮，再打开Vue开发者工具，工具里面被修改，反之则不变
+                    // this.persons[0] = {id:'001',name:'马老师',age:'50',sex:'男'}
+                    // Vue.set(this.persons, 0, {id:'001',name:'马老师',age:'50',sex:'男'})
+
+                    // vue 对数组类新的元素，不会进行数据监听，没有给绑定get 和 set，直接修改无法响应到网页
+                    // 解决办法：vue可以用push，pop，shift，unshift，splice，sort，reverse实现数组数据的响应式
+                    this.persons.splice(0, 1, {id:'001',name:'马老师',age:'50',sex:'男'})
+                }
+            },
+        })
+    </script
+</body>
+</html>

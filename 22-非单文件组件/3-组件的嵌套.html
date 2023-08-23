@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../js/vue.js"></script>
+</head>
+<body>
+    <!-- 
+        组件的嵌套：
+            1.组件内部使用componrents属性嵌套组件
+            2.被嵌套的组件标签写在嵌套组件的template模板内
+            3.app组件时最高级别组件，本身不含数据，管理其他所有的组件。一人之下(vm),万人之上(其他组件)
+            4.app组件标签写在vm的template模板上，root容器内部不放组件标签
+     -->
+    <div id="root">
+        
+    </div>
+</body>
+<script type="text/javascript">
+    Vue.config.productionTip = false
+     // 创建student组件
+     const student = Vue.extend({
+        template:`
+            <div>
+                <h2>学生姓名：{{name}}</h2>
+                <h2>学生年龄：{{age}}</h2>
+            </div>
+        `,
+        data(){
+            return{
+                name:'张三',
+                age:18
+            }
+        }
+    })
+    // 创建school组件
+    const school = Vue.extend({
+        template:`
+            <div>
+                <h2>学校名称：{{name}}</h2>
+                <h2>学校地址：{{adress}}</h2>
+                <student></student>
+            </div>
+        `,
+        data(){
+            return{
+                name:'尚硅谷',
+                adress:'北京昌平'
+            }
+        },
+        components:{
+            student
+        }
+    })
+    // 创建hello组件
+    const hello = Vue.extend({
+        template:`
+            <div>
+                <h1>欢迎来到{{name}}</h1>    
+            </div>
+        `,
+        data(){
+            return{
+                name:'蒙德'
+            }
+        }
+    })   
+    // 创建app组件
+    const app = Vue.extend({
+        template:`
+           <div>
+                <hello></hello>
+                <school></school>
+            </div>
+        `,
+        components:{
+            school,
+            hello
+        }
+    })
+    const vm = new Vue({
+        template:`<app></app>`,
+        el:'#root',
+        components:{
+            app
+        }
+    })
+</script>
+</html>

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../js/vue.js"></script>
+</head>
+<body>
+    <!-- 
+        监视属性watch:
+            1.当被监视的属性变化时，回调函数自动调用，进行相关操作
+            2.监视的属性必须存在，才能进行监视！！
+            3.监视的两种写法：
+                (1) new Vue 时传入watch配置
+                (2) 通过wm.$watch监视
+     -->
+    <div id="root">
+        <h2>今天天气很{{info}}</h2>
+        <!-- 绑定事件的时候：@xxx="yyy"  yyy可以写一些简单的语句 -->
+        <!-- <button @click="isHot = ! isHot">点击切换天气</button> -->
+        <button @click="changeWheater">点击切换天气</button>
+    </div>
+    <script type="text/javascript">
+        Vue.config.productionTip = false
+        const vm = new Vue({
+            el:'#root',
+            data:{
+                isHot:true
+            },
+            methods: {
+                changeWheater(){
+                    this.isHot = !this.isHot
+                }
+            },
+            computed:{
+                info(){
+                    return this.isHot ? '炎热' : '凉爽'
+                }
+            },
+            
+            /*watch:{
+                // 正常写法
+                isHot:{
+                    immediate:true,  // 初始化时让handler调用一下
+                    // 当isHot发生变化时，handler被调用
+                    handler(newValue,  oldValue){
+                        console.log('isHot被修改', newValue, oldValue);
+                    }
+                }
+               // 简写
+               isHot(newValus, oldValue){
+                    console.log('isHot被修改', newValue, oldValue);
+                }
+        
+            }*/
+
+            
+        })
+        // 正常写法
+        // 监视属性的实例写法
+        // 对象里的值为 字符串 类型
+        vm.$watch('isHot', {
+            immediate:true,  // 初始化时让handler调用一下
+            // 当isHot发生变化时，handler被调用
+            handler(newValue,  oldValue){
+                console.log('isHot被修改', newValue, oldValue);
+            }
+        }) 
+
+        // 简写
+        // vm.$watch('isHot', function(){
+        //     console.log('isHot被修改', newValue, oldValue);
+        // })
+    </script>
+</body>
+</html>
